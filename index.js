@@ -41,7 +41,7 @@ app.get("/",(req,res)=>{
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}!`)
 
-
+	return;
 	tf.loadLayersModel('https://safe-tundra-49540.herokuapp.com/model.json')
 	.then(mdl=>{
 		model=mdl;
