@@ -19,15 +19,13 @@ app.post("/form",(req,res)=>{
 	new formidable.IncomingForm().parse(req)
 	.on("file",(name,file)=>{
 		Jimp.read(file.path, (err, img) => {
-		  if (err) throw err;
-		  
-		  img.resize(96, 96) 
-		  
+			img.resize(96, 96)   
 
-		   let sen=tf.tensor(img.bitmap.data, [1,96,96,4])
-		   let s=tf.slice(sen,[0,0,0,1],[1,96,96,3]);
-		   let pre=s.div(tf.scalar(255))
-		   res.end(labels[model.predict(pre).argMax(1).dataSync()[0]])
+			let sen=tf.tensor(img.bitmap.data, [1,96,96,4])
+				.gather([3,2,1,0],3)
+				.slice([0,0,0,1],[1,96,96,3])
+				.div(tf.scalar(255))
+		   res.end(labels[model.predict(sen).argMax(1).dataSync()[0]])
 		});
 
 	})
