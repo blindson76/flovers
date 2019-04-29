@@ -1,7 +1,7 @@
 
 const tf = require('@tensorflow/tfjs')
-require('@tensorflow/tfjs-node'),
-Jimp = require('jimp');
+//require('@tensorflow/tfjs-node')
+,Jimp = require('jimp');
 
 const express=require("express"),
 formidable = require('formidable')
@@ -39,7 +39,7 @@ app.listen(port, () => {
 	console.log(`Example app listening on port ${port}!`)
 
 
-	tf.loadLayersModel('file://model/model.json')
+	tf.loadLayersModel('https://safe-tundra-49540.herokuapp.com/model.json')
 	.then(mdl=>{
 		model=mdl;
 		console.log("model loaded");
