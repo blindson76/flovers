@@ -35,6 +35,9 @@ app.post("/form",(req,res)=>{
 		file.path = __dirname + '/uploads/' + file.name
 	})
 });
+app.get("/",(req,res)=>{
+	res.send("OK")
+})
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}!`)
 
