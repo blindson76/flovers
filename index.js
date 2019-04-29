@@ -11,7 +11,7 @@ var model=null;
 var app=express();
 app.use(express.static("statics"));
 
-var port= port || 3000;
+var port= process.env.PORT || 5000;
 
 const labels=["Daisy","Dandelion","Rose","Sunflower","Tulip"];
 
