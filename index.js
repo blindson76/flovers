@@ -39,6 +39,7 @@ app.post("/form",(req,res)=>{
 	})
 });
 app.post("/classify",(req,res)=>{
+	let results=[];
 	new formidable.IncomingForm().parse(req)
 	.on("file",(name,file)=>{
 		Jimp.read(file.path, (err, img) => {
@@ -49,12 +50,15 @@ app.post("/classify",(req,res)=>{
 				.slice([0,0,0,1],[1,96,96,3])
 				.div(tf.scalar(255))
 
-		   res.end(JSON.stringify(model.predict(sen).dataSync()))
+			results.push(model.predict(sen).dataSync());
 		});
 
 	})
 	.on("fileBegin",(name,file)=>{
 		file.path = __dirname + '/uploads/' + file.name
+	})
+	.on("end",()=>{		
+		   res.end(JSON.stringify(results))
 	})
 });
 app.get("/",(req,res)=>{
