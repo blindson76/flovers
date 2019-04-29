@@ -15,6 +15,10 @@ var port= process.env.PORT || 5000;
 
 const labels=["Daisy","Dandelion","Rose","Sunflower","Tulip"];
 
+app.options("/form",(res,req,next)=>{
+	res.header("Access-Control-Allow-Methods","POST")
+	next()
+})
 app.post("/form",(req,res)=>{
 	new formidable.IncomingForm().parse(req)
 	.on("file",(name,file)=>{
