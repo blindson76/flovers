@@ -43,6 +43,8 @@ app.post("/classify",(req,res)=>{
 				.gather([3,2,1,0],3)
 				.slice([0,0,0,1],[1,96,96,3])
 				.div(tf.scalar(255))
+
+		   res.header("Access-Control-Allow-Origin", '*');
 		   res.end(JSON.stringify(model.predict(sen).dataSync()))
 		});
 
