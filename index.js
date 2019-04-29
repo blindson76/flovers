@@ -15,8 +15,9 @@ var port= process.env.PORT || 5000;
 
 const labels=["Daisy","Dandelion","Rose","Sunflower","Tulip"];
 
-app.options("/form",(res,req,next)=>{
+app.all("/form",(res,req,next)=>{
 	res.header("Access-Control-Allow-Methods","POST")
+	res.header("deneme","123")
 	next()
 })
 app.post("/form",(req,res)=>{
