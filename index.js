@@ -17,6 +17,7 @@ const labels=["Daisy","Dandelion","Rose","Sunflower","Tulip"];
 
 app.all("/classify",(res,req,next)=>{
 	res.header("Access-Control-Allow-Methods","POST")
+   res.header("Access-Control-Allow-Origin", '*');
 	next()
 })
 app.post("/form",(req,res)=>{
@@ -48,7 +49,6 @@ app.post("/classify",(req,res)=>{
 				.slice([0,0,0,1],[1,96,96,3])
 				.div(tf.scalar(255))
 
-		   res.header("Access-Control-Allow-Origin", '*');
 		   res.end(JSON.stringify(model.predict(sen).dataSync()))
 		});
 
