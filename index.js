@@ -4,6 +4,7 @@ Promise = require("bluebird");
 //require('@tensorflow/tfjs-node')
 Jimp = require('jimp');
 
+console.log(process.env.HEROKU_URL)
 const express=require("express"),
 formidable = require('formidable')
 ;
@@ -11,8 +12,8 @@ formidable = require('formidable')
 var model=null;
 var app=express();
 app.use(express.static("statics"));
-
 var port= process.env.PORT || 5000;
+var url=process.env.HEROKU_URL || "http://127.0.0.1:"+port+"/"
 
 const labels=["Daisy","Dandelion","Rose","Sunflower","Tulip"];
 
@@ -72,7 +73,7 @@ app.get("/",(req,res)=>{
 app.listen(port, () => {
 	console.log(`Example app listening on port ${port}!`)
 
-	tf.loadLayersModel('https://safe-tundra-49540.herokuapp.com/model.json')
+	tf.loadLayersModel(url+'model.json')
 	.then(mdl=>{
 		model=mdl;
 		console.log("model loaded");
