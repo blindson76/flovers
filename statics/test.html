@@ -46,9 +46,6 @@
     padding: 5em 0em;
   }
 
-  .uppy-DashboardAddFiles-infos {
-    visibility: hidden;
-	}
 .UppyModalOpenerBtn{
 	visibility: hidden;
 }
@@ -169,8 +166,8 @@
       	document.res=response
       	let res=response.body[0];
       	res=Object.keys(res).map(k=>res[k])
-      	console.log(labels[res.indexOf(Math.max(...res))])
-		  $(document.getElementById('uppy_'+file.id.trim())).find(".uppy-DashboardItem-info")
+      	let inner='<a class="ui red right bottom attached label">'+labels[res.indexOf(Math.max(...res))]+'</a>';
+		  console.log($(document.getElementById('uppy_'+file.id.trim())).find(".uppy-DashboardItem-preview").append(inner))
 		})
 
     </script>
