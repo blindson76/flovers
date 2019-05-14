@@ -69,19 +69,31 @@ app.post("/classify",upload.single("file"),(req,res)=>{
 	try{
 		Jimp.read(req.file.path,(err,img)=>{
 			if(err){
-				res.status(400).send("img error")
+				res.status(400).send({status:"fail",err:"corrupted image"});
 				return;
 			}
 			img.resize(96, 96)   
 			let sen=tf.tensor(img.bitmap.data, [1,96,96,4])
 				.gather([3,2,1,0],3)
 				.slice([0,0,0,1],[1,96,96,3])
-				.div(tf.scalar(255))
-			res.send(JSON.stringify(model.predict(sen).dataSync()))
+				.div(tf.scalar(255));
+			let rates=model.predict(sen).dataSync();
+			
+			rates=Object.keys(rates).map(function(i){
+				return rates[i];
+			});
+			let max=rates.indexOf(Math.max(...rates));
+			let resp={
+				"status":"OK",
+				"predicted":max,
+				"predictedLabel":labels[max],
+				"rates":rates
+			}
+			res.send(resp);
 		})
 	}
 	catch(e){
-		res.status(400).send("unhandled error")
+		res.status(400).send({status:"fail",err:"unexcepted error"});
 	}
 
 	

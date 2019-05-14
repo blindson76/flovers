@@ -4,15 +4,43 @@ const fs = require("fs"),
 
 let defaultServer = 'http://127.0.0.1:5000/classify'
 
+const labels=["Daisy","Dandelion","Rose","Sunflower","Tulip"];
+
+var walkSync = function(dir, filelist) {
+    var path = path || require('path');
+    var fs = fs || require('fs'),
+        files = fs.readdirSync(dir);
+    filelist = filelist || [];
+    files.forEach(function(file) {
+      if (fs.statSync(path.join(dir, file)).isDirectory()) {
+        filelist = walkSync(path.join(dir, file), filelist);
+      }
+      else {
+        filelist.push(file);
+      }
+    });
+    return filelist;
+  };
+
+
+
 module.exports.getTestData = function () {
-    let list = fs.readFileSync(path.resolve(__dirname, "dataset/flower_labels.csv"), "utf8")
-    return list.split("\n").slice(1).map(line => {
-        return {
-            "file": line.split(",")[0],
-            "label": line.split(",")[1]
-        }
-    })
-}
+    let arr = [];
+    labels.forEach((dir,i)=>{
+        dir=dir.toLowerCase();
+        list=walkSync(path.resolve(__dirname,"dataset",dir)).slice(-20);
+        list.forEach(fil=>{ 
+            if(!fil.endsWith(".jpg")){
+                return;
+            }      
+            arr.push({
+                file:dir+"/"+fil,
+                label:i
+            });
+        });
+    });
+    return arr;
+};
 
 module.exports.testImg = function (img, server, cb) {
     if (typeof server === "function") {
@@ -25,7 +53,7 @@ module.exports.testImg = function (img, server, cb) {
         formData: {
             file: fs.createReadStream(path.resolve(__dirname, "dataset", img))
         }
-        ,proxy:'http://localhost:8888'
+        //,proxy:'http://localhost:8888'
     }, cb)
 
 }
