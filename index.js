@@ -3,6 +3,19 @@ const tf = require('@tensorflow/tfjs'),
 Promise = require("bluebird");
 //require('@tensorflow/tfjs-node')
 Jimp = require('jimp');
+multer=require("multer")
+
+upload=multer({
+	dest:"uploads",
+	fileFilter:(req,file,cb)=>{
+		if(file.mimetype.startsWith("image/")){
+			cb(null,true)
+		}else{
+			req.__err=true;
+			cb(null,false)
+		}
+	}
+})
 
 console.log(process.env.HEROKU_URL)
 const express=require("express"),
@@ -23,58 +36,55 @@ app.all("/classify",(req,res,next)=>{
 	next()
 })
 app.post("/form",(req,res)=>{
-	new formidable.IncomingForm().parse(req)
-	.on("file",(name,file)=>{
-		Jimp.read(file.path, (err, img) => {
-			img.resize(96, 96)   
+	try{
+		new formidable.IncomingForm().parse(req)
+		.on("file",(name,file)=>{
+			Jimp.read(file.path, (err, img) => {
+				img.resize(96, 96)   
 
+				let sen=tf.tensor(img.bitmap.data, [1,96,96,4])
+					.gather([3,2,1,0],3)
+					.slice([0,0,0,1],[1,96,96,3])
+					.div(tf.scalar(255))
+			res.end(labels[model.predict(sen).argMax(1).dataSync()[0]])
+			});
+
+		})
+		.on("fileBegin",(name,file)=>{
+			console.log(file)
+			file.path = __dirname + '/uploads/' + file.name
+		})
+	}
+	catch(e){
+		res.err(JSON.stringify({err:e}))
+	}
+});
+app.post("/classify",upload.single("file"),(req,res)=>{
+
+	if(req.__err){
+		res.status(400).send("HATA");
+		return;
+	}
+	
+	try{
+		Jimp.read(req.file.path,(err,img)=>{
+			if(err){
+				res.status(400).send("img error")
+				return;
+			}
+			img.resize(96, 96)   
 			let sen=tf.tensor(img.bitmap.data, [1,96,96,4])
 				.gather([3,2,1,0],3)
 				.slice([0,0,0,1],[1,96,96,3])
 				.div(tf.scalar(255))
-		   res.end(labels[model.predict(sen).argMax(1).dataSync()[0]])
-		});
-
-	})
-	.on("fileBegin",(name,file)=>{
-		file.path = __dirname + '/uploads/' + file.name
-	})
-});
-app.post("/classify",(req,res)=>{
-	let files=[];
-	try{
-		new formidable.IncomingForm().parse(req)
-		.on("file",(name,file)=>{
-			files.push(Jimp.read(file.path))		
-
+			res.send(JSON.stringify(model.predict(sen).dataSync()))
 		})
-		.on("fileBegin",(name,file)=>{
-			file.path = __dirname + '/uploads/' + file.name
-		})
-		.on("end",()=>{	
-			let results=[];
-			Promise.all(files)
-			.then(images=>{
-				images.forEach(img=>{
-					img.resize(96, 96)   
-					let sen=tf.tensor(img.bitmap.data, [1,96,96,4])
-						.gather([3,2,1,0],3)
-						.slice([0,0,0,1],[1,96,96,3])
-						.div(tf.scalar(255))
-				   results.push(model.predict(sen).dataSync())
-
-				})
-				res.send(JSON.stringify(results))
-			})
-		})
-		.on("error",err=>{
-			res.send(JSON.stringify(err))
-		})
-
 	}
 	catch(e){
-		res.send("ERROR")
+		res.status(400).send("unhandled error")
 	}
+
+	
 });
 app.get("/",(req,res)=>{
 	res.send("OK")
