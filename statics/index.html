@@ -1,16 +1,3 @@
-<!doctype html>
-<html>
-
-<head>
-	<meta charset="utf-8">
-	<title>fLOVERS</title>
-</head>
-
-<body>
-
-</body>
-
-</html>
 <!DOCTYPE html>
 <html>
 
@@ -21,8 +8,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 	<!-- Site Properties -->
-	<title>Fixed Menu Example - Semantic</title>
-
+	<title>fLOVERS</title>
+	<link rel="shortcut icon" type="image/ico" href="/logo.ico"/>
 	<link rel="stylesheet" type="text/css"
 		href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/reset.min.css">
 	<link rel="stylesheet" type="text/css"
@@ -36,9 +23,7 @@
 	<script src="https://transloadit.edgly.net/releases/uppy/v1.0.0/uppy.min.js"></script>
 
 	<style type="text/css">
-		body {
-			background-color: #FFFFFF;
-		}
+		
 
 		.ui.menu .item img.logo {
 			margin-right: 1.5em;
@@ -60,6 +45,13 @@
 		.UppyModalOpenerBtn {
 			visibility: hidden;
 		}
+		body {
+			background-image: url("bg2.png");
+			background-repeat: repeat;
+		}
+		.container{
+			background-color: transparent;
+		}
 	</style>
 
 </head>
@@ -69,22 +61,56 @@
 	<div class="ui fixed menu">
 		<div class="ui container">
 			<a href="#" class="header item">
-				<img class="logo" src="assets/images/logo.png">
+				<img class="logo" src="logo.ico">
 				fLOVERS
 			</a>
-			<a href="#" class="item">Test Et</a>
-			<a href="#" class="item">Ekip</a>
-			<a href="#" class="item">İletişim</a>
+			<a href="#ekip" class="item">Ekip</a>
+		</div>
+		<div class="right menu">
+			<div class="item">
+				<a href="https://github.com/melburmer/flovers" target="_blank" class="item"><i class='icon github square'></i></a>
+			</div>
 		</div>
 	</div>
 
 	<div class="ui main text container">
-		<h1 class="ui header"></h1>
 
-		<button class="UppyModalOpenerBtn">Open Uppy Dashboard Modal</button>
-
-		<div class="DashboardContainer"></div>
-		<div id="drag-drop-area"></div>
+		<div>
+			<div class="DashboardContainer"></div>
+		</div>
+		<h1 class="ui title">Ekip</h1>
+		<div class="ui segment"  id="ekip">
+			<div class="ui list">
+				<div class="item">
+				  <i class="map marker icon"></i>
+				  <div class="content">
+					<a class="header">Omer YANIK</a>
+					<div class="description">omeryanik@gazi.edu.tr</div>
+				  </div>
+				</div>
+				<div class="item">
+					<i class="map marker icon"></i>
+					<div class="content">
+					  <a class="header">Burak GENC</a>
+					  <div class="description">burak.genc@gazi.edu.tr</div>
+					</div>
+				  </div>
+				  <div class="item">
+					<i class="map marker icon"></i>
+					<div class="content">
+					  <a class="header">Melih GORGULU</a>
+					  <div class="description">melih.gorgulu@gazi.edu.tr</div>
+					</div>
+				  </div>
+				  <div class="item">
+					<i class="map marker icon"></i>
+					<div class="content">
+					  <a class="header">Umit BOZKURT</a>
+					  <div class="description">umit.bozkurt@gazi.edu.tr</div>
+					</div>
+				  </div>
+			</div>
+		</div>
 
 		<script>
 			const labels = ["Daisy", "Dandelion", "Rose", "Sunflower", "Tulip"];
@@ -161,7 +187,9 @@
 					}
 				})
 				.use(Uppy.Webcam, {
-					target: Uppy.Dashboard
+					target: Uppy.Dashboard,
+					modes:['picture'],
+					facingMode:'environment'
 				})
 				.use(Uppy.XHRUpload, {
 					endpoint: '/classify',
@@ -190,6 +218,7 @@
 		<div class="ui center aligned container">
 		</div>
 	</div>
+	
 </body>
 
 </html>
