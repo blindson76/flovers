@@ -5,9 +5,10 @@ Vue.component('folder', {
 	template: '#folder-tpl',
 	mounted: function mounted() {
 		var el = $(this.$el);
+		var that = this;
 		$(this.$el).dropzone({
 			url: function url(f) { 
-				return "/classify";
+				return "/ups?label="+that.name;
 			},
 			method: "post",
 			paramName:"file",

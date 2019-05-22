@@ -40,7 +40,7 @@
 
 <body>
   <script type="text/x-template" id="folder-tpl">
-    <div class="ui card">
+    <div class="ui mini card">
       <div class="image">
         <img src="/folder-6-xxl.png">
       </div>
@@ -52,40 +52,62 @@
     </div>
 </script>
 
-  <div class="ui menu">
-    <div class="ui container">
-      <a href="#" class="header item">
-        <img class="logo" src="assets/images/logo.png">
-        fLOVERS
-      </a>
-      <a href="#" class="item">Test Et</a>
-      <a href="#" class="item">Ekip</a>
-      <a href="#" class="item">İletişim</a>
+  
+<div class="ui fixed menu">
+  <div class="ui container">
+    <a href="/" class="header item">
+      <img class="logo" src="logo.ico">
+      fLOVERS
+    </a>
+    <a href="#ekip" class="item">Team</a>
+  </div>
+  <div class="right menu">
+    <div class="item">
+      <a href="https://github.com/melburmer/flovers" target="_blank" class="item"><i class='icon github square'></i></a>
     </div>
   </div>
-
-  <div class="ui fixed menu">
-      <div class="ui container">
-        <a href="#" class="header item">
-          <img class="logo" src="logo.ico">
-          fLOVERS
-        </a>
-        <a href="#ekip" class="item">Ekip</a>
-      </div>
-      <div class="right menu">
-        <div class="item">
-          <a href="https://github.com/melburmer/flovers" target="_blank" class="item"><i class='icon github square'></i></a>
-        </div>
-      </div>
-    </div>
+</div>
   
-    <div class="ui container" id="app">
+    <div class="ui main text container" id="app">
         <div class="ui segment">
-            <div class="ui cards">
+            <div class="ui small cards">
                 <folder v-for="label in labels" v-bind:name="label"></folder>
-                <folder name="Yeni" v-show="false"></folder>
+                <folder name="Yeni" v-show="true"></folder>
               </div>
         </div>
+        <h1 class="ui title">Team</h1>
+		<div class="ui segment"  id="ekip">
+			<div class="ui list">
+				<div class="item">
+				  <i class="map marker icon"></i>
+				  <div class="content">
+					<a class="header">Omer YANIK</a>
+					<div class="description">omeryanik@gazi.edu.tr</div>
+				  </div>
+				</div>
+				<div class="item">
+					<i class="map marker icon"></i>
+					<div class="content">
+					  <a class="header">Burak GENC</a>
+					  <div class="description">burak.genc@gazi.edu.tr</div>
+					</div>
+				  </div>
+				  <div class="item">
+					<i class="map marker icon"></i>
+					<div class="content">
+					  <a class="header">Melih GORGULU</a>
+					  <div class="description">melih.gorgulu@gazi.edu.tr</div>
+					</div>
+				  </div>
+				  <div class="item">
+					<i class="map marker icon"></i>
+					<div class="content">
+					  <a class="header">Umit BOZKURT</a>
+					  <div class="description">umit.bozkurt@gazi.edu.tr</div>
+					</div>
+				  </div>
+			</div>
+		</div>
       
   
     </div>

@@ -60,11 +60,11 @@
 
 	<div class="ui fixed menu">
 		<div class="ui container">
-			<a href="#" class="header item">
+			<a href="/" class="header item">
 				<img class="logo" src="logo.ico">
 				fLOVERS
 			</a>
-			<a href="#ekip" class="item">Ekip</a>
+			<a href="#ekip" class="item">Team</a>
 		</div>
 		<div class="right menu">
 			<div class="item">
@@ -78,7 +78,7 @@
 		<div>
 			<div class="DashboardContainer"></div>
 		</div>
-		<h1 class="ui title">Ekip</h1>
+		<h1 class="ui title">Team</h1>
 		<div class="ui segment"  id="ekip">
 			<div class="ui list">
 				<div class="item">
@@ -141,55 +141,14 @@
 					],
 					browserBackButtonClose: true,
 					showSelectedFiles: true,
-					proudlyDisplayPoweredByUppy: false,
-					locale: {
-						strings: {
-							closeModal: 'Kapat',
-							// Used as the screen reader label for the plus (+) button that shows the “Add more files” screen
-							addMoreFiles: 'Başka fotoğraf ekle',
-							// Used as the header for import panels, e.g., "Import from Google Drive".
-							importFrom: 'İçeri al',
-							// When `inline: false`, used as the screen reader label for the dashboard modal.
-							dashboardWindowTitle: 'Fotoğraf yükleme alanı',
-							// When `inline: true`, used as the screen reader label for the dashboard area.
-							dashboardTitle: 'Fotoğraf yükleme',
-							// Shown in the Informer when a link to a file was copied to the clipboard.
-							copyLinkToClipboardSuccess: 'Link copied to clipboard.',
-							// Used when a link cannot be copied automatically — the user has to select the text from the
-							// input element below this string.
-							copyLinkToClipboardFallback: 'Copy the URL below',
-							// Used as the hover title and screen reader label for buttons that copy a file link.
-							copyLink: 'Copy link',
-							// Used as the hover title and screen reader label for file source icons, e.g., "File source: Dropbox".
-							fileSource: 'File source: %{name}',
-							// Used as the label for buttons that accept and close panels (remote providers or metadata editor)
-							done: 'Tamam',
-							// Used as the screen reader label for buttons that remove a file.
-							removeFile: 'Fotoğrafı kaldır',
-							// Used as the screen reader label for buttons that open the metadata editor panel for a file.
-							editFile: 'Fotoğrafı düzenle',
-							// Shown in the panel header for the metadata editor. Rendered as "Editing image.png".
-							editing: 'Düzenleniyor %{file}',
-							// Text for a button shown on the file preview, used to edit file metadata
-							edit: 'Düzenle',
-							cancel: "İptal",
-							dropPasteImport: 'Fotoğraflarınızı buraya sürükleyin',
-							dropPaste: 'Fotoğraflarınızı buraya sürükleyin',
-							browse: 'Gözat',
-							uploadComplete: 'Yükleme tamamlandı',
-							// Used as the hover text and screen reader label for the buttons to resume paused uploads.
-							resumeUpload: 'Devam et',
-							// Used as the hover text and screen reader label for the buttons to pause uploads.
-							pauseUpload: 'Duraklat',
-							// Used as the hover text and screen reader label for the buttons to retry failed uploads.
-							retryUpload: 'Tekrar dene',
-						}
-					}
+					proudlyDisplayPoweredByUppy: false
 				})
 				.use(Uppy.Webcam, {
 					target: Uppy.Dashboard,
 					modes:['picture'],
-					facingMode:'environment'
+					facingMode:'environment',
+					mirror:false
+
 				})
 				.use(Uppy.XHRUpload, {
 					endpoint: '/classify',

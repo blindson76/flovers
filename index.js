@@ -6,7 +6,7 @@ Jimp = require('jimp');
 multer=require("multer")
 
 upload=multer({
-	dest:"uploads",
+	dest:"statics/ups",
 	fileFilter:(req,file,cb)=>{
 		if(file.mimetype.startsWith("image/")){
 			cb(null,true)
@@ -15,6 +15,19 @@ upload=multer({
 			cb(null,false)
 		}
 	}
+})
+up2=multer.diskStorage({
+	fileFilter:(req,file,cb)=>{
+		if(file.mimetype.startsWith("image/")){
+			cb(null,true)
+		}else{
+			req.__err=true;
+			cb(null,false)
+		}
+	},
+	destination:function(req, file, cb) {
+		cb(null, 'statics/admin/'+req.query.label+'/')
+	  }
 })
 
 console.log(process.env.HEROKU_URL)
@@ -51,14 +64,16 @@ app.post("/form",(req,res)=>{
 
 		})
 		.on("fileBegin",(name,file)=>{
-			console.log(file)
-			file.path = __dirname + '/uploads/' + file.name
+			file.path = __dirname + '/static/ups/' + file.name
 		})
 	}
 	catch(e){
 		res.err(JSON.stringify({err:e}))
 	}
 });
+app.post('/ups',multer({storage:up2}).single('file'),(req,res)=>{
+	res.send(req.file.destination+req.file.filename)
+})
 app.post("/classify",upload.single("file"),(req,res)=>{
 
 	if(req.__err){
