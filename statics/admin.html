@@ -4,7 +4,8 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width">
-  <title>JS Bin</title>
+  <title>fLOVERS</title>
+	<link rel="shortcut icon" type="image/ico" href="/logo.ico"/>
   <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
   <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
   <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
@@ -15,6 +16,16 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js">
   </script>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <style type="text/css">
+		
+		body {
+			background-image: url("bg2.png");
+			background-repeat: repeat;
+		}
+		.container{
+			background-color: transparent;
+		}
+	</style>
 </head>
 <template id="tpl01">
   <span>
@@ -52,15 +63,37 @@
       <a href="#" class="item">İletişim</a>
     </div>
   </div>
-  <div class="ui container" id="app">
-    <div class="ui cards">
-      <folder v-for="label in labels" v-bind:name="label"></folder>
-      <folder name="Yeni" v-show="false"></folder>
+
+  <div class="ui fixed menu">
+      <div class="ui container">
+        <a href="#" class="header item">
+          <img class="logo" src="logo.ico">
+          fLOVERS
+        </a>
+        <a href="#ekip" class="item">Ekip</a>
+      </div>
+      <div class="right menu">
+        <div class="item">
+          <a href="https://github.com/melburmer/flovers" target="_blank" class="item"><i class='icon github square'></i></a>
+        </div>
+      </div>
     </div>
-
-    <div id="upload">upload</div>
-
-  </div>
+  
+    <div class="ui container" id="app">
+        <div class="ui segment">
+            <div class="ui cards">
+                <folder v-for="label in labels" v-bind:name="label"></folder>
+                <folder name="Yeni" v-show="false"></folder>
+              </div>
+        </div>
+      
+  
+    </div>
+  
+    <div class="ui inverted vertical footer segment">
+      <div class="ui center aligned container">
+      </div>
+    </div>
 
 </body>
 <script type="text/javascript" src="app.js"></script>
