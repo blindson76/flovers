@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+  <script src="https://code.jquery.com/jquery-3.1.0.js"></script>
+  <script src="https://rawgit.com/enyo/dropzone/master/dist/dropzone.js"></script>
+  <link rel="stylesheet" href="https://rawgit.com/enyo/dropzone/master/dist/dropzone.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/components/reset.min.css">
+  <link rel="stylesheet" type="text/css"
+    href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.js">
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+</head>
+<template id="tpl01">
+  <span>
+    <img class="ui avatar image" data-dz-thumbnail><span data-dz-name></span>
+    <span class="dzs-filename"></span>      
+    <span class="dz-success-mark"><span>✔</span></span>
+    <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress></span></div>
+  </span>
+
+</template>
+
+
+<body>
+  <script type="text/x-template" id="folder-tpl">
+    <div class="ui card">
+      <div class="image">
+        <img src="/folder-6-xxl.png">
+      </div>
+      <div class="content">
+        <a class="header">{{name}}</a>
+      </div>
+      <div class="extra content">
+      </div>
+    </div>
+</script>
+
+  <div class="ui menu">
+    <div class="ui container">
+      <a href="#" class="header item">
+        <img class="logo" src="assets/images/logo.png">
+        fLOVERS
+      </a>
+      <a href="#" class="item">Test Et</a>
+      <a href="#" class="item">Ekip</a>
+      <a href="#" class="item">İletişim</a>
+    </div>
+  </div>
+  <div class="ui container" id="app">
+    <div class="ui cards">
+      <folder v-for="label in labels" v-bind:name="label"></folder>
+      <folder name="Yeni" v-show="false"></folder>
+    </div>
+
+    <div id="upload">upload</div>
+
+  </div>
+
+</body>
+<script type="text/javascript" src="app.js"></script>
+
+</html>
